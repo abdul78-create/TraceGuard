@@ -4,7 +4,7 @@ Shared between API services and future ML training/evaluation pipelines.
 """
 
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 
 
@@ -52,7 +52,10 @@ class NetworkFlowRecord(BaseModel):
     """
     Standardized network flow record structure for threat inspection.
     Field names align with typical flow meters (e.g. CICFlowMeter, Argus, NetFlow).
+    Supports optional dictionary of 69 flow features for Stage 4/5 models.
     """
+    model_config = {"extra": "allow"}
+
     flow_id: Optional[str] = Field(None, description="Unique flow identifier or hash")
     timestamp: Optional[str] = Field(None, description="ISO timestamp of flow start")
     protocol: int = Field(..., ge=0, le=255, description="IP protocol number (e.g. 6=TCP, 17=UDP, 1=ICMP)")
@@ -73,6 +76,7 @@ class NetworkFlowRecord(BaseModel):
     rst_flag_count: int = Field(0, ge=0, le=1, description="RST flag count")
     ack_flag_count: int = Field(0, ge=0, le=1, description="ACK flag count")
     fin_flag_count: int = Field(0, ge=0, le=1, description="FIN flag count")
+    features: Optional[Dict[str, Any]] = Field(None, description="Full flow feature dictionary (69 features for trained model)")
 
 
 class PredictionResult(BaseModel):
@@ -88,3 +92,7 @@ class PredictionResult(BaseModel):
     abstention_reason: AbstentionReason = AbstentionReason.NONE
     class_probabilities: Dict[str, float] = Field(default_factory=dict)
     feature_contributions: Optional[Dict[str, float]] = Field(None, description="Top feature attribution values")
+    model_version: Optional[str] = Field("stage4.1-calibrated-rf-iforest", description="Model version")
+    policy_version: Optional[str] = Field(None, description="Triage policy version applied")
+    explanation: Optional[str] = Field(None, description="Human-readable decision explanation")
+    safety_notice: Optional[str] = Field(None, description="Safety and limitation notice")

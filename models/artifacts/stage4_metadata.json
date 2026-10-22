@@ -1,0 +1,28 @@
+{
+  "created_at_utc": "2026-10-22T10:50:42.562901+00:00",
+  "heldout_attack_family": "Bot",
+  "random_seed": 42,
+  "n_features": 69,
+  "split_sizes": {
+    "clean_total": 2520966,
+    "train": 1511407,
+    "train_fitted": 250000,
+    "val_cal": 251901,
+    "val_thresh": 377852,
+    "test_known": 377853,
+    "test_heldout_bot": 1953
+  },
+  "anomaly_thresholds": {
+    "1%": 0.995574,
+    "2%": 0.824108,
+    "5%": 0.60008,
+    "10%": 0.379601,
+    "25%": 0.187313,
+    "50%": 0.075572
+  },
+  "runtimes": {
+    "classifier_fit": 28.6,
+    "calibrator_fit": 2.78,
+    "total_experiment": 203.02
+  }
+}

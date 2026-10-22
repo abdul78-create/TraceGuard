@@ -43,14 +43,24 @@ frontend/.turbo/
 # Datasets & ML Artifacts
 data/raw/*
 !data/raw/.gitkeep
+!data/raw/cicids2017/
+data/raw/cicids2017/*
+!data/raw/cicids2017/.gitkeep
+!data/raw/cicids2017/README.md
 data/processed/*
 !data/processed/.gitkeep
 data/interim/*
 !data/interim/.gitkeep
-models/artifacts/*
-!models/artifacts/.gitkeep
 reports/figures/*
 !reports/figures/.gitkeep
+
+# Large data formats safeguard
+*.pcap
+*.pcapng
+*.csv.gz
+*.parquet
+*.zip
+*.tar.gz
 
 # Environment variables & secrets
 .env

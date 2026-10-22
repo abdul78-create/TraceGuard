@@ -1,5 +1,5 @@
 import React from 'react'
-import { ShieldAlert, RefreshCw, Server, AlertTriangle } from 'lucide-react'
+import { ShieldAlert, RefreshCw } from 'lucide-react'
 import type { HealthResponse, ModelStatusResponse } from '../types/api'
 
 interface HeaderProps {
@@ -16,57 +16,100 @@ export const Header: React.FC<HeaderProps> = ({
   onRefresh,
 }) => {
   const isApiOnline = Boolean(health && health.status === 'healthy')
-  const isModelReady = Boolean(
-    modelStatus && modelStatus.lifecycle_status === 'READY'
-  )
+  const isModelReady = Boolean(modelStatus && modelStatus.lifecycle_status === 'READY')
 
   return (
     <header className="app-header">
       <div className="header-inner">
         <div className="brand-section">
           <div className="brand-icon-wrapper" aria-hidden="true">
-            <ShieldAlert size={22} />
+            <ShieldAlert size={18} />
           </div>
           <div>
             <h1 className="brand-title">
               TraceGuard
-              <span className="badge badge-blue">Stage 1</span>
+              {isModelReady && (
+                <span className="badge badge-ok" style={{ fontSize: '0.65rem' }}>
+                  Stage 5: Live Integration
+                </span>
+              )}
             </h1>
-            <p className="brand-subtitle">Adaptive Network Threat Detection</p>
+            <p className="brand-subtitle">Adaptive Network Threat Detection &amp; Triage</p>
           </div>
         </div>
 
         <div className="header-controls">
-          <div className="badge-group" style={{ display: 'flex', gap: '8px' }}>
-            <span
-              className={`badge ${isApiOnline ? 'badge-emerald' : 'badge-rose'}`}
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            {/* API Status */}
+            <div
               title={
                 isApiOnline
-                  ? `API Connected: ${health?.app} (${health?.version})`
-                  : 'Backend API connection failed'
+                  ? `Backend connected — ${health?.app} v${health?.version}`
+                  : 'Backend not reachable at 127.0.0.1:8000'
               }
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '4px 10px',
+                borderRadius: '9999px',
+                border: '1px solid',
+                borderColor: isApiOnline ? '#0a0a0a' : '#cccccc',
+                background: isApiOnline ? '#0a0a0a' : 'transparent',
+                fontSize: '0.7rem',
+                fontWeight: 600,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                color: isApiOnline ? '#ffffff' : '#888888',
+                cursor: 'default',
+              }}
             >
               <span
-                className={`pulse-dot ${
-                  isApiOnline ? 'pulse-emerald' : 'pulse-rose'
-                }`}
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  background: isApiOnline ? '#ffffff' : '#aaaaaa',
+                  animation: isApiOnline ? 'pulse-ring 2s ease-in-out infinite' : 'none',
+                  display: 'inline-block',
+                  flexShrink: 0,
+                }}
               />
-              <Server size={12} />
               {isApiOnline ? 'API Online' : 'API Offline'}
-            </span>
+            </div>
 
-            <span
-              className={`badge ${isModelReady ? 'badge-emerald' : 'badge-amber'}`}
-              title={modelStatus?.message || 'Detection Engine Unconfigured'}
+            {/* Model Status */}
+            <div
+              title={modelStatus?.message || 'Detection model not loaded'}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '4px 10px',
+                borderRadius: '9999px',
+                border: '1px solid',
+                borderColor: isModelReady ? '#0a0a0a' : '#cccccc',
+                background: isModelReady ? '#f8f8f8' : 'transparent',
+                fontSize: '0.7rem',
+                fontWeight: 600,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                color: isModelReady ? '#0a0a0a' : '#888888',
+                cursor: 'default',
+              }}
             >
               <span
-                className={`pulse-dot ${
-                  isModelReady ? 'pulse-emerald' : 'pulse-amber'
-                }`}
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  background: isModelReady ? '#0a0a0a' : '#aaaaaa',
+                  display: 'inline-block',
+                  flexShrink: 0,
+                }}
               />
-              <AlertTriangle size={12} />
               {modelStatus?.lifecycle_status || 'UNCONFIGURED'}
-            </span>
+            </div>
           </div>
 
           <button
@@ -75,11 +118,12 @@ export const Header: React.FC<HeaderProps> = ({
             className="btn btn-secondary"
             title="Refresh system status"
             aria-label="Refresh status"
+            style={{ padding: '6px 12px', fontSize: '0.78rem' }}
           >
             <RefreshCw
-              size={14}
+              size={13}
               style={{
-                animation: loading ? 'spin 1s linear infinite' : 'none',
+                animation: loading ? 'spin 0.8s linear infinite' : 'none',
               }}
             />
             <span>Refresh</span>

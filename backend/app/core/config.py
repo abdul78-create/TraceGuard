@@ -42,6 +42,9 @@ class Settings(BaseSettings):
     enable_abstention: bool = True
     default_abstention_threshold: float = 0.65
     drift_detection_window: int = 1000
+    auto_load_model: bool = True
+    active_triage_policy: str = "POLICY_A"
+    model_version: str = "stage4.1-calibrated-rf-iforest"
 
     @field_validator("cors_origins", mode="before")
     @classmethod

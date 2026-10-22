@@ -8,4 +8,5 @@ python-dotenv>=1.0.0,<2.0.0
 # Scientific & ML dependencies (to be utilized in Stages 3-4)
 numpy>=1.26.0,<3.0.0
 pandas>=2.2.0,<3.0.0
+pyarrow>=15.0.0,<20.0.0
 scikit-learn>=1.4.0,<2.0.0

@@ -3,6 +3,18 @@ Tests for model lifecycle status and prediction safety constraints.
 """
 
 import pytest
+from backend.app.services.model_service import ModelService, set_model_service
+
+
+@pytest.fixture(autouse=True)
+def unconfigured_model_fixture():
+    """Ensures unconfigured model service for unconfigured lifecycle constraint tests."""
+    unconfigured_service = ModelService(auto_load=False)
+    set_model_service(unconfigured_service)
+    yield
+    # Restore loaded service for subsequent tests
+    from backend.app.core.config import settings
+    set_model_service(ModelService(artifacts_dir=settings.model_artifacts_dir, auto_load=True))
 
 
 @pytest.mark.asyncio

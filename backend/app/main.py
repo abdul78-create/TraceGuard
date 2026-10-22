@@ -22,6 +22,13 @@ logger = logging.getLogger("traceguard.api")
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     logger.info(f"Starting {settings.app_name} v{settings.app_version} [{settings.environment}]")
     logger.info(f"API Prefix: {settings.api_prefix} | Debug: {settings.debug}")
+
+    # Initialize model service once during startup
+    from backend.app.services.model_service import get_model_service
+    model_service = get_model_service()
+    if settings.auto_load_model and not model_service.is_ready and settings.model_artifacts_dir:
+        model_service.load_artifacts(settings.model_artifacts_dir)
+
     yield
     logger.info("Shutting down TraceGuard API service.")
 
@@ -75,8 +82,12 @@ async def global_exception_handler(request: Request, exc: Exception):
     )
 
 
+from backend.app.api.routes.health import router as health_router
+
 # Mount API routes
 app.include_router(api_router, prefix=settings.api_prefix)
+# Support root /health and /health/ready in addition to /api/health
+app.include_router(health_router, prefix="")
 
 
 @app.get("/", summary="Root Index")

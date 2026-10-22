@@ -48,8 +48,20 @@ class ModelStatusResponse(BaseModel):
         default_factory=list,
         description="Known attack categories the model was trained on"
     )
+    active_policy_name: Optional[str] = Field(
+        default=None,
+        description="Active triage policy name (e.g., POLICY_A, POLICY_B, POLICY_C)"
+    )
+    anomaly_thresholds: Optional[Dict[str, float]] = Field(
+        default=None,
+        description="Operating anomaly detection thresholds"
+    )
+    n_features: Optional[int] = Field(
+        default=None,
+        description="Expected number of flow features"
+    )
     message: str = Field(
-        default="Detection engine is unconfigured. Machine learning models will be trained in Stages 3 and 4 after dataset selection in Stage 2."
+        default="Detection engine is unconfigured."
     )
 
 

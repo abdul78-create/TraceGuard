@@ -1,0 +1,312 @@
+{
+  "metadata": {
+    "created_at_utc": "2026-10-22T10:50:42.562901+00:00",
+    "heldout_attack_family": "Bot",
+    "random_seed": 42,
+    "n_features": 69,
+    "split_sizes": {
+      "clean_total": 2520966,
+      "train": 1511407,
+      "train_fitted": 250000,
+      "val_cal": 251901,
+      "val_thresh": 377852,
+      "test_known": 377853,
+      "test_heldout_bot": 1953
+    },
+    "anomaly_thresholds": {
+      "1%": 0.995574,
+      "2%": 0.824108,
+      "5%": 0.60008,
+      "10%": 0.379601,
+      "25%": 0.187313,
+      "50%": 0.075572
+    },
+    "runtimes": {
+      "classifier_fit": 28.6,
+      "calibrator_fit": 2.78,
+      "total_experiment": 203.02
+    }
+  },
+  "protocol_b_heldout_experiment": {
+    "heldout_label": "Bot",
+    "heldout_sample_count": 1953,
+    "supervised_model_known_test": {
+      "macro_f1": 0.998864,
+      "attack_precision": 0.99811,
+      "attack_recall": 0.99811,
+      "pr_auc": 0.999901,
+      "roc_auc": 0.99998,
+      "fpr": 0.000382,
+      "fnr": 0.00189,
+      "confusion_matrix": {
+        "tn": 314249,
+        "fp": 120,
+        "fn": 120,
+        "tp": 63364
+      }
+    },
+    "supervised_model_on_heldout_bot": {
+      "total_bot_flows": 1953,
+      "detected_as_attack_count": 0,
+      "missed_as_benign_count": 1953,
+      "supervised_recall": 0.0,
+      "mean_predicted_attack_prob": 0.0002
+    },
+    "benign_only_anomaly_detection_operating_points": [
+      {
+        "target_fpr": "1%",
+        "threshold": 0.995574,
+        "measured_test_benign_fpr": 0.0102,
+        "test_known_attack_recall": 0.3765,
+        "test_known_attack_detected_count": 23902,
+        "test_known_attack_total_count": 63484,
+        "heldout_bot_recall": 0.0061,
+        "heldout_bot_detected_count": 12,
+        "heldout_bot_total_count": 1953
+      },
+      {
+        "target_fpr": "2%",
+        "threshold": 0.824108,
+        "measured_test_benign_fpr": 0.02,
+        "test_known_attack_recall": 0.3945,
+        "test_known_attack_detected_count": 25047,
+        "test_known_attack_total_count": 63484,
+        "heldout_bot_recall": 0.0169,
+        "heldout_bot_detected_count": 33,
+        "heldout_bot_total_count": 1953
+      },
+      {
+        "target_fpr": "5%",
+        "threshold": 0.60008,
+        "measured_test_benign_fpr": 0.0493,
+        "test_known_attack_recall": 0.5564,
+        "test_known_attack_detected_count": 35325,
+        "test_known_attack_total_count": 63484,
+        "heldout_bot_recall": 0.0225,
+        "heldout_bot_detected_count": 44,
+        "heldout_bot_total_count": 1953
+      },
+      {
+        "target_fpr": "10%",
+        "threshold": 0.379601,
+        "measured_test_benign_fpr": 0.0991,
+        "test_known_attack_recall": 0.5999,
+        "test_known_attack_detected_count": 38083,
+        "test_known_attack_total_count": 63484,
+        "heldout_bot_recall": 0.0241,
+        "heldout_bot_detected_count": 47,
+        "heldout_bot_total_count": 1953
+      },
+      {
+        "target_fpr": "25%",
+        "threshold": 0.187313,
+        "measured_test_benign_fpr": 0.2498,
+        "test_known_attack_recall": 0.6187,
+        "test_known_attack_detected_count": 39276,
+        "test_known_attack_total_count": 63484,
+        "heldout_bot_recall": 0.0533,
+        "heldout_bot_detected_count": 104,
+        "heldout_bot_total_count": 1953
+      },
+      {
+        "target_fpr": "50%",
+        "threshold": 0.075572,
+        "measured_test_benign_fpr": 0.5004,
+        "test_known_attack_recall": 0.8646,
+        "test_known_attack_detected_count": 54887,
+        "test_known_attack_total_count": 63484,
+        "heldout_bot_recall": 0.5893,
+        "heldout_bot_detected_count": 1151,
+        "heldout_bot_total_count": 1953
+      }
+    ],
+    "calibration_evaluation_untouched_test": {
+      "raw_ece": 0.001967,
+      "raw_brier": 0.000713,
+      "calibrated_ece": 0.000151,
+      "calibrated_brier": 0.00054,
+      "reliability_diagram_bins": [
+        {
+          "bin_index": 0,
+          "bin_range": "[0.00, 0.10]",
+          "count": 314206,
+          "confidence": 0.0002,
+          "empirical_accuracy": 0.0002,
+          "calibration_gap": 0.0
+        },
+        {
+          "bin_index": 1,
+          "bin_range": "[0.10, 0.20]",
+          "count": 68,
+          "confidence": 0.1418,
+          "empirical_accuracy": 0.3235,
+          "calibration_gap": 0.1818
+        },
+        {
+          "bin_index": 2,
+          "bin_range": "[0.20, 0.30]",
+          "count": 45,
+          "confidence": 0.246,
+          "empirical_accuracy": 0.3333,
+          "calibration_gap": 0.0873
+        },
+        {
+          "bin_index": 3,
+          "bin_range": "[0.30, 0.40]",
+          "count": 28,
+          "confidence": 0.342,
+          "empirical_accuracy": 0.3929,
+          "calibration_gap": 0.0509
+        },
+        {
+          "bin_index": 4,
+          "bin_range": "[0.40, 0.50]",
+          "count": 22,
+          "confidence": 0.4453,
+          "empirical_accuracy": 0.6818,
+          "calibration_gap": 0.2366
+        },
+        {
+          "bin_index": 5,
+          "bin_range": "[0.50, 0.60]",
+          "count": 17,
+          "confidence": 0.5531,
+          "empirical_accuracy": 0.7059,
+          "calibration_gap": 0.1528
+        },
+        {
+          "bin_index": 6,
+          "bin_range": "[0.60, 0.70]",
+          "count": 27,
+          "confidence": 0.6498,
+          "empirical_accuracy": 0.7778,
+          "calibration_gap": 0.1279
+        },
+        {
+          "bin_index": 7,
+          "bin_range": "[0.70, 0.80]",
+          "count": 37,
+          "confidence": 0.7597,
+          "empirical_accuracy": 0.5135,
+          "calibration_gap": 0.2462
+        },
+        {
+          "bin_index": 8,
+          "bin_range": "[0.80, 0.90]",
+          "count": 64,
+          "confidence": 0.8584,
+          "empirical_accuracy": 0.8281,
+          "calibration_gap": 0.0303
+        },
+        {
+          "bin_index": 9,
+          "bin_range": "[0.90, 1.00]",
+          "count": 63339,
+          "confidence": 0.9989,
+          "empirical_accuracy": 0.9987,
+          "calibration_gap": 0.0002
+        }
+      ]
+    },
+    "selective_prediction_triage_comparison": {
+      "policy_a_permissive": {
+        "policy_name": "Policy A: Permissive (Stage 4 Baseline)",
+        "known_test_coverage": 0.9588,
+        "known_test_selective_risk": 0.000569,
+        "heldout_bot_threat_suspected_count": 0,
+        "heldout_bot_abstain_count": 44,
+        "heldout_bot_falsely_cleared_benign_count": 1909,
+        "heldout_bot_safety_rate": 0.0225,
+        "heldout_bot_false_clearance_rate": 0.9775
+      },
+      "policy_b_balanced": {
+        "policy_name": "Policy B: Balanced Anomaly Guard (75% Inlier)",
+        "known_test_coverage": 0.792,
+        "known_test_selective_risk": 0.000655,
+        "heldout_bot_threat_suspected_count": 0,
+        "heldout_bot_abstain_count": 104,
+        "heldout_bot_falsely_cleared_benign_count": 1849,
+        "heldout_bot_safety_rate": 0.0533,
+        "heldout_bot_false_clearance_rate": 0.9467
+      },
+      "policy_c_conservative": {
+        "policy_name": "Policy C: Conservative Zero-Trust (50% Inlier)",
+        "known_test_coverage": 0.5834,
+        "known_test_selective_risk": 0.000681,
+        "heldout_bot_threat_suspected_count": 0,
+        "heldout_bot_abstain_count": 1151,
+        "heldout_bot_falsely_cleared_benign_count": 802,
+        "heldout_bot_safety_rate": 0.5893,
+        "heldout_bot_false_clearance_rate": 0.4107
+      }
+    }
+  },
+  "protocol_c_temporal_drift_experiment": {
+    "early_train_days": [
+      "Monday",
+      "Tuesday"
+    ],
+    "early_train_flows": 903802,
+    "mid_val_day": "Wednesday",
+    "mid_val_flows": 396972,
+    "late_test_days": [
+      "Thursday",
+      "Friday"
+    ],
+    "late_test_flows": 795012,
+    "psi_summary": {
+      "stable_count_psi_under_0_1": 67,
+      "moderate_count_psi_0_1_to_0_25": 2,
+      "significant_count_psi_ge_0_25": 0,
+      "top_10_drifted_features": [
+        {
+          "feature": "Max Packet Length",
+          "psi": 0.1148
+        },
+        {
+          "feature": "Bwd Packet Length Max",
+          "psi": 0.1058
+        },
+        {
+          "feature": "Total Length of Bwd Packets",
+          "psi": 0.0973
+        },
+        {
+          "feature": "Subflow Bwd Bytes",
+          "psi": 0.0973
+        },
+        {
+          "feature": "Bwd Packet Length Mean",
+          "psi": 0.0915
+        },
+        {
+          "feature": "Avg Bwd Segment Size",
+          "psi": 0.0915
+        },
+        {
+          "feature": "Min Packet Length",
+          "psi": 0.0579
+        },
+        {
+          "feature": "Fwd Packet Length Min",
+          "psi": 0.0576
+        },
+        {
+          "feature": "Fwd Packet Length Max",
+          "psi": 0.0508
+        },
+        {
+          "feature": "Init_Win_bytes_backward",
+          "psi": 0.0338
+        }
+      ]
+    },
+    "daily_anomaly_fpr_drift": {
+      "Monday": 0.0404,
+      "Tuesday": 0.0425,
+      "Wednesday": 0.0505,
+      "Thursday": 0.0357,
+      "Friday": 0.0807
+    }
+  }
+}

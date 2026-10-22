@@ -1,11 +1,8 @@
-"""
-System health and readiness endpoints.
-"""
-
 from datetime import datetime, timezone
 from fastapi import APIRouter
 from backend.app.core.config import settings
 from backend.app.schemas.health import HealthResponse, ReadinessResponse, ServiceStatus
+from backend.app.services.model_service import get_model_service
 
 router = APIRouter(prefix="/health", tags=["Health"])
 
@@ -14,7 +11,7 @@ router = APIRouter(prefix="/health", tags=["Health"])
 async def get_health() -> HealthResponse:
     """
     Returns overall service health and operational status of subcomponents.
-    Clearly indicates that the ML detection engine is unconfigured in Stage 1.
+    Health check remains healthy independent of model readiness.
     """
     return HealthResponse(
         status="healthy",
@@ -39,8 +36,7 @@ async def get_health() -> HealthResponse:
 @router.get("/ready", response_model=ReadinessResponse, summary="Readiness Check")
 async def get_readiness() -> ReadinessResponse:
     """
-    Readiness probe indicating whether the server is up and whether
-    the ML inference pipeline is loaded and ready for predictions.
+    Readiness probe indicating whether the server is up.
     """
     return ReadinessResponse(
         ready=True,
