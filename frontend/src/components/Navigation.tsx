@@ -54,6 +54,7 @@ export const Navigation: React.FC<NavigationProps> = ({
         return (
           <button
             key={tab.id}
+            id={`nav-tab-${tab.id}`}
             role="tab"
             aria-selected={isActive}
             className={`nav-tab ${isActive ? 'active' : ''}`}

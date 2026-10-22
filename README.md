@@ -15,8 +15,10 @@
 
 <br/>
 
-https://github.com/user-attachments/assets/demo_walkthrough
-*(Interactive 5-Step Guided Journey demonstrated below)*
+<div align="center">
+  <img src="docs/media/demo_walkthrough.webp" alt="TraceGuard Live Working Demo Walkthrough" width="96%" style="border-radius: 8px; border: 1px solid #d4d4d4; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
+  <p><em>🎥 <b>Interactive Demonstration:</b> Starting Page → Normal Flow → Known DoS → Unseen Botnet Anomaly Abstention → Policy Switching</em></p>
+</div>
 
 <br/>
 
@@ -38,14 +40,18 @@ https://github.com/user-attachments/assets/demo_walkthrough
 
 ---
 
-## 🎬 Live Walkthrough & Interaction Demo
+## 🎬 Live Walkthrough & Interactive Demo Guide
 
-Experience the full guided workflow in action — selecting test scenarios, comparing detection policies, submitting live flows to the inference engine, and observing anomaly abstention:
+The animated recording above demonstrates TraceGuard's end-to-end interactive workflow in real time:
 
-<div align="center">
-  <img src="docs/media/demo_walkthrough.webp" alt="TraceGuard End-to-End Guided Demonstration" width="100%" style="border-radius: 8px; border: 1px solid #e5e5e5;" />
-  <p><em>Automated walkthrough: Starting Page → Scenario Selection → Policy B Triage → Anomaly Detection Abstention → Policy Comparison → Benchmark Verification.</em></p>
-</div>
+1. **Dashboard Initialization**: Verified real-time operational status for the FastAPI backend (`http://127.0.0.1:8000`) and the ML detection engine (`69-feature Random Forest + Platt Calibrator + Isolation Forest`).
+2. **Scenario 1 — Normal Web Traffic**: Flow record `demo-benign-001` evaluated. Returns **`LIKELY_BENIGN`** with low calibrated attack probability ($0.03\%$) and normal anomaly score ($0.0432$).
+3. **Scenario 2 — Known Denial-of-Service Attack**: Flow record `demo-dos-002` evaluated. Returns **`THREAT_SUSPECTED`** with $100.0\%$ calibrated attack probability.
+4. **Scenario 3 — Held-out Unseen Botnet (ARES)**: The supervised classifier alone missed this flow entirely (calibrated $P=0.02\%$). Under **Policy B (Balanced)**, the unsupervised Isolation Forest anomaly guard detects the atypical statistical signature ($s = 0.2335 > \tau = 0.1873$) and issues a **`NEEDS_HUMAN_REVIEW`** (`ABSTAIN`) triage verdict.
+5. **Real-Time Policy Comparison**:
+   - Switching to **Policy A (Permissive, $\tau=0.6001$)** flips the decision to `LIKELY_BENIGN`, demonstrating why low-vigilance models silently miss novel attacks.
+   - Restoring **Policy B (Balanced, $\tau=0.1873$)** immediately restores the safe human-review hold.
+6. **Feature Contract & Empirical Audits**: Exploration of the 69-feature schema groups, frozen Stage 4.1 evaluation metrics ($99.89\%$ Macro-F1), and Population Stability Index drift tables ($67/69$ features stable).
 
 ---
 

@@ -190,6 +190,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
             </p>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
               <button
+                id="btn-start-traffic-analysis"
                 className="btn btn-primary"
                 onClick={() => onNavigate && onNavigate('threats')}
                 style={{ fontSize: '0.88rem', padding: '10px 20px', gap: '8px' }}
