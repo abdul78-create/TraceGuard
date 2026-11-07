@@ -179,44 +179,97 @@ The table below reconciles the performance of all three triage policies on the h
 
 ## 🚀 Quick Start
 
-Run TraceGuard locally in three simple steps:
+Run TraceGuard locally using the verified steps below:
 
 ### 1. Prerequisites
-- Python 3.12+
-- Node.js 18+ & npm
+- **Python 3.12+**
+- **Node.js 18+** & **npm**
+
+---
 
 ### 2. Backend Setup
+
+#### A. Clone & Navigate
 ```bash
-# Clone the repository
 git clone https://github.com/abdul78-create/TraceGuard.git
 cd TraceGuard
+```
 
-# Activate Python virtual environment and install dependencies
-.\.venv\Scripts\activate    # Windows
-# source .venv/bin/activate # Linux/macOS
+#### B. Create & Activate Python Virtual Environment
+
+- **Windows PowerShell**:
+  ```powershell
+  python -m venv .venv
+  .\.venv\Scripts\Activate.ps1
+  ```
+  *(If script execution is restricted on your system, run `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser` once).*
+
+- **Windows Command Prompt (CMD)**:
+  ```cmd
+  python -m venv .venv
+  .\.venv\Scripts\activate.bat
+  ```
+
+- **macOS / Linux**:
+  ```bash
+  python3 -m venv .venv
+  source .venv/bin/activate
+  ```
+
+#### C. Configure Environment Variables
+Copy the template configuration file:
+
+```bash
+# Windows PowerShell
+Copy-Item .env.example .env
+
+# Windows CMD
+copy .env.example .env
+
+# macOS / Linux
+cp .env.example .env
+```
+
+#### D. Install Dependencies
+```bash
+# Install core runtime dependencies
 pip install -r backend/requirements.txt
 
-# Start FastAPI server
+# (Optional) Install development & test dependencies for running pytest
+pip install -r backend/requirements-dev.txt
+```
+
+#### E. Start FastAPI Backend Server
+```bash
 python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
 ```
 
-Verify backend health at: [http://127.0.0.1:8000/api/health](http://127.0.0.1:8000/api/health)
+- **Interactive Swagger Documentation**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- **Service Health Check**: [http://127.0.0.1:8000/api/health](http://127.0.0.1:8000/api/health)
+- **Model Readiness Probe**: [http://127.0.0.1:8000/api/health/ready](http://127.0.0.1:8000/api/health/ready)
+- **Model Artifact Status**: [http://127.0.0.1:8000/api/model/status](http://127.0.0.1:8000/api/model/status)
+
+---
 
 ### 3. Frontend Setup
-In a separate terminal:
+
+In a separate terminal window:
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Open your browser at: **[http://localhost:5173/](http://localhost:5173/)**
+- **Interactive Dashboard**: Open your browser at **[http://localhost:5173/](http://localhost:5173/)**
+- **Run Frontend Linter**: `npm run lint`
+- **Build Production Assets**: `npm run build`
 
 ---
 
 ## 🧪 Running Automated Tests
 
-TraceGuard maintains a 100% passing test suite across backend API, ML research, and frontend UI:
+TraceGuard maintains a verified 100% passing test suite across backend API, ML research, and frontend UI:
 
 ```bash
 # Run all Python backend & ML research tests (56 tests)
@@ -260,6 +313,17 @@ TraceGuard/
 ├── reports/                     # Data audits & Stage 4.1 empirical benchmarks
 └── docs/media/                  # High-resolution screenshots & demo recording
 ```
+
+---
+
+## 📚 Dataset Provenance, Privacy & Attribution
+
+- **Canonical Dataset**: CIC-IDS2017 created by the Canadian Institute for Cybersecurity (CIC) at the University of New Brunswick (UNB).
+  - *Reference*: Iman Sharafaldin, Arash Habibi Lashkari, and Ali A. Ghorbani, *"Toward Generating a New Intrusion Detection Dataset and Intrusion Traffic Characterization"*, ICISSP 2018.
+- **Audited Mirror**: Verified Apache Parquet distribution ([`bvsam/cic-ids-2017`](https://huggingface.co/datasets/bvsam/cic-ids-2017)), comprising 2,830,743 records across 8 files matching Monday–Friday capture timelines.
+- **69-Feature Vector Contract**: Raw flow statistics processed into 69 leak-free numerical features (packet volumes, inter-arrival times, TCP flags, segment sizes, rates, and subflows).
+- **Leakage Prevention**: Host IP addresses (`Source IP`, `Destination IP`), MAC addresses, and raw timestamps are intentionally excluded from model training to prevent target leakage and ensure generalization across networks.
+- **Privacy & Safety**: The repository does not store raw packet captures (`.pcap`), personal user data, or sensitive network credentials. Raw datasets are excluded via `.gitignore`.
 
 ---
 
